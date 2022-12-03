@@ -1,0 +1,28 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 500px;
+  height: 700px;
+}
+
+
+.content__screen {
+  min-height: 50px;
+  border: 1px solid black;
+}
+.content__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.button__clear {
+  grid-column: 1 / 3;
+}
+.button__delete {
+  grid-column: 3 / 5;
+}
