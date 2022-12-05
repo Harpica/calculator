@@ -12,7 +12,7 @@
 
 
 .content__screen {
-  min-height: 50px;
+  min-height: 100px;
   border: 1px solid black;
 }
 .content__grid {

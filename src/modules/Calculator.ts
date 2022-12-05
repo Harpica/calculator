@@ -67,20 +67,23 @@ export class Calculator {
     }
   }
   handleNumber(value: string): Result {
-    if (!this._isContunuingNumber) {
+    if (this._isContunuingNumber === false) {
       this._isContunuingNumber = true;
       this._data.currentValue = parseInt(value);
+      console.log('new number');
     } else if (this._isFirstNumberAfterDot) {
       this._data.currentValue = parseFloat(
         this._data.currentValue.toString() + '.' + value
       );
+      console.log('new number after dot');
       this._isFirstNumberAfterDot = false;
     } else {
       this._data.currentValue = parseFloat(
         this._data.currentValue.toString() + value
       );
+      console.log('contunuing numbering');
     }
-    return this._getResult();
+    return this.getResult();
   }
   handleDot(): void {
     this._isFirstNumberAfterDot = true;
@@ -92,9 +95,12 @@ export class Calculator {
     if (this._data.operator === '') {
       this._data.operator = value;
       this._data.previousValue = this._data.currentValue;
-      return this._getResult();
+      return this.getResult();
     }
+    return this._performOperation(value);
 
+  }
+  _performOperation(value: string): Result {
     const result = this.operate(
       this._data.operator,
       this._data.previousValue,
@@ -104,21 +110,27 @@ export class Calculator {
       this._data.currentValue = result.currentNumber;
       this._data.previousValue = this._data.currentValue;
       this._data.operator = value;
-      console.log(this._data);
     } else {
       this._data.reset();
     }
     return result;
   }
+
+  handleEquals(): Result {
+    return this._performOperation('');
+  }
   handleClear(): void {
     this._data.reset();
   }
-  handleDelete(): Result {
-
+  handleDelete(): void {
     this._data.currentValue = parseFloat(this._data.currentValue.toString().slice(0, -1));
-    return this._getResult();
+    if (isNaN(this._data.currentValue)) {
+      this._data.currentValue = 0;
+      this._isContunuingNumber = false;
+    }
+    console.log(this._data.currentValue);
   }
-  _getResult(): Result {
+  getResult(): Result {
     return {
       currentNumber: this._data.currentValue,
       previousNumber: this._data.previousValue,
