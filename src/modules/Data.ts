@@ -1,19 +1,16 @@
+// Model
 export class Data {
-  previousValues: Array<number>;
+  previousValue: number;
   currentValue: number;
   operator: string;
   constructor() {
-    this.previousValues = [];
+    this.previousValue = 0;
     this.currentValue = 0;
     this.operator = '';
   }
-  getCurrentValueString(): string {
-    return this.currentValue.toString();
-  }
-  getExpression(): string {
-   return `${this.previousValues[0]} ${this.operator}`;
-  }
-  getExpressionForResult(): string {
-    return `${this.previousValues[0]} ${this.operator} ${this.previousValues[1]} = `;
+  reset() {
+    this.previousValue = 0;
+    this.currentValue = 0;
+    this.operator = '';
   }
 }

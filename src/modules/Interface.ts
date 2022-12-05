@@ -22,11 +22,10 @@ export class CalcInterface {
     this.currentValue = this.interfaceElement.querySelector(currentViewSelector) as HTMLElement;
   }
   setCurrentValue(value: string): void {
-    this.currentValue.textContent += value;
+    this.currentValue.textContent = value;
   }
   setExpressionValue(value: string):void {
     this.expression.textContent = value;
   }
-
 
 }
