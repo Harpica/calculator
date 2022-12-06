@@ -1,5 +1,6 @@
 import { isOutput } from './Controller';
 import { Data } from './Data';
+import Big from 'big.js';
 
 export enum Error {
   DIVISION_BY_ZERO,
@@ -25,19 +26,19 @@ export class Calculator {
     this._isFirstNumberAfterDot = false;
   }
   private _add(a: number, b: number): number {
-    return a + b;
+    return Big(a).plus(b).toNumber();
   }
 
   private _substract(a: number, b: number): number {
-    return a - b;
+    return Big(a).minus(b).toNumber();
   }
 
   private _multiply(a: number, b: number): number {
-    return a * b;
+    return Big(a).times(b).toNumber();
   }
 
   private _divide(a: number, b: number): number {
-    return a / b;
+    return Big(a).div(b).toNumber();
   }
 
   operate(operator: string, a: number, b: number): Result {
@@ -70,18 +71,15 @@ export class Calculator {
     if (this._isContunuingNumber === false) {
       this._isContunuingNumber = true;
       this._data.currentValue = parseInt(value);
-      console.log('new number');
     } else if (this._isFirstNumberAfterDot) {
       this._data.currentValue = parseFloat(
         this._data.currentValue.toString() + '.' + value
       );
-      console.log('new number after dot');
       this._isFirstNumberAfterDot = false;
     } else {
       this._data.currentValue = parseFloat(
         this._data.currentValue.toString() + value
       );
-      console.log('contunuing numbering');
     }
     return this.getResult();
   }
@@ -128,7 +126,6 @@ export class Calculator {
       this._data.currentValue = 0;
       this._isContunuingNumber = false;
     }
-    console.log(this._data.currentValue);
   }
   getResult(): Result {
     return {

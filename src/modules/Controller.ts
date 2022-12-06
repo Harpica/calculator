@@ -35,7 +35,6 @@ export class Controller {
     });
     this._interface.resultButton.addEventListener('click', () => {
       this._isResultButtonOn = true;
-      console.log('equals');
       this._displayExpression(this._calculator.getResult());
       this._displayResult(this._calculator.handleEquals());
     });
@@ -51,7 +50,6 @@ export class Controller {
           (this._interface.currentValue.textContent as string).indexOf('.') ===
             (this._interface.currentValue.textContent as string).length - 2
         ) {
-          console.log('hello');
           this._interface.setCurrentValue(
             (this._interface.currentValue.textContent as string).slice(0, -1)
           );
@@ -80,7 +78,6 @@ export class Controller {
     if (isOutput(result)) {
       if (!(result.operator === '')) {
         if (this._isResultButtonOn) {
-          console.log('displaying result');
           this._isResultButtonOn = false;
           this._interface.setExpressionValue(
             `${result.previousNumber} ${result.operator} ${result.currentNumber} = `
